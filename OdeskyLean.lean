@@ -6,3 +6,9 @@ import OdeskyLean.Spectral
 import OdeskyLean.Gaussian
 import OdeskyLean.Main
 import OdeskyLean.TheoremB
+import OdeskyLean.Weyl
+import OdeskyLean.Orthonormalize
+import OdeskyLean.GenProfile
+import OdeskyLean.Perturb
+import OdeskyLean.Limit
+import OdeskyLean.TheoremBFull
