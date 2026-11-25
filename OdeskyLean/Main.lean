@@ -171,6 +171,18 @@ theorem main_mem_Theta_iff [NeZero n] (hT : ∀ i, |B.t i| < 1) (hN : 2 * n ≤ 
     · exact mul_nonpos_of_nonneg_of_nonpos (B.s_pos i).le
   simp only [hp, hn]
 
+/-- Theorem A, equality case: `a = b` if and only if `(α, β)` is similarly
+ordered. -/
+theorem main_a_eq_b_iff [NeZero n] (hT : ∀ i, |B.t i| < 1) (hN : 2 * n ≤ N)
+    {lp lm sv : Fin n → ℝ} (h : B.SpectralLists lp lm sv) :
+    B.pa b = B.pb b lp lm ↔ SimilarlyOrdered B.α B.β := by
+  obtain ⟨σ, hσ⟩ := exists_sortsDesc B.α
+  obtain ⟨τ, hτ⟩ := exists_sortsDesc B.β
+  obtain ⟨rfl, rfl⟩ := B.lists_sorted hT hN h hσ hτ
+  simp only [B.pa_eq b, pb, B.nL_eq b, Function.comp_apply]
+  change profA B.α B.β = profB B.α B.β σ τ ↔ _
+  exact profA_eq_profB_iff B.α B.β (B.α_pos hT) (B.β_pos hT) hσ hτ
+
 end OrthoBlocks
 
 end Odesky
