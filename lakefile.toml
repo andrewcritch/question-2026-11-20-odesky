@@ -1,0 +1,14 @@
+name = "OdeskyLean"
+version = "0.1.0"
+defaultTargets = ["OdeskyLean"]
+
+[leanOptions]
+pp.unicode.fun = true
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.28.0"
+
+[[lean_lib]]
+name = "OdeskyLean"
