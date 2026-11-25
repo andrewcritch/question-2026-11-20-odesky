@@ -36,15 +36,60 @@ noncomputable def formS (q k : Fin n → V) : V →ₗ[ℝ] V := (1 / 2 : ℝ) �
 
 noncomputable def formT (q k : Fin n → V) : V →ₗ[ℝ] V := (1 / 2 : ℝ) • (formL q k - formLt q k)
 
+private lemma formL_apply (q k : Fin n → V) (x : V) :
+    formL q k x = ∑ i, ⟪q i, x⟫ • k i := by
+  simp [formL, LinearMap.sum_apply]
+
+private lemma formLt_apply (q k : Fin n → V) (x : V) :
+    formLt q k x = ∑ i, ⟪k i, x⟫ • q i := by
+  simp [formLt, LinearMap.sum_apply]
+
+private lemma sum_inner_gen (a c d e : Fin n → V) (b : OrthonormalBasis (Fin N) ℝ V) :
+    ∑ t, ⟪∑ i, ⟪a i, b t⟫ • c i, ∑ j, ⟪d j, b t⟫ • e j⟫ =
+      ∑ i, ∑ j, ⟪c i, e j⟫ * ⟪a i, d j⟫ := by
+  have h : ∀ t, ⟪∑ i, ⟪a i, b t⟫ • c i, ∑ j, ⟪d j, b t⟫ • e j⟫ =
+      ∑ i, ∑ j, ⟪c i, e j⟫ * (⟪a i, b t⟫ * ⟪b t, d j⟫) := by
+    intro t
+    simp only [sum_inner, inner_sum, inner_smul_left, inner_smul_right, conj_trivial,
+      Finset.mul_sum]
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+    rw [real_inner_comm (b t) (d j)]; ring
+  simp_rw [h]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [← Finset.mul_sum, b.sum_inner_mul_inner]
+
 theorem formLt_adjoint (q k : Fin n → V) (x y : V) :
     ⟪formL q k x, y⟫ = ⟪x, formLt q k y⟫ := by
-  sorry
+  rw [formL_apply, formLt_apply]
+  simp only [sum_inner, inner_sum, inner_smul_left, inner_smul_right, conj_trivial]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [real_inner_comm x (q i)]; ring
 
 theorem formS_isSymmetric (q k : Fin n → V) : (formS q k).IsSymmetric := by
-  sorry
+  intro x y
+  have h1 := formLt_adjoint q k x y
+  have h2 := formLt_adjoint q k y x
+  simp only [formS, LinearMap.smul_apply, LinearMap.add_apply, inner_smul_left, inner_smul_right,
+    inner_add_left, inner_add_right, conj_trivial]
+  rw [real_inner_comm x (formL q k y), real_inner_comm (formLt q k x) y] at h2
+  linarith
 
 theorem negTsq_isSymmetric (q k : Fin n → V) : (-(formT q k ∘ₗ formT q k)).IsSymmetric := by
-  sorry
+  have hT : ∀ x y, ⟪formT q k x, y⟫ = -⟪x, formT q k y⟫ := by
+    intro x y
+    have h1 := formLt_adjoint q k x y
+    have h2 := formLt_adjoint q k y x
+    simp only [formT, LinearMap.smul_apply, LinearMap.sub_apply, inner_smul_left,
+      inner_smul_right, inner_sub_left, inner_sub_right, conj_trivial]
+    rw [real_inner_comm x (formL q k y), real_inner_comm (formLt q k x) y] at h2
+    linarith
+  intro x y
+  simp only [LinearMap.neg_apply, LinearMap.comp_apply, inner_neg_left, inner_neg_right]
+  rw [hT, hT, neg_neg]
 
 /-- Sorted eigenvalues of `S`. -/
 noncomputable def eigS (q k : Fin n → V) : Fin N → ℝ :=
@@ -74,11 +119,27 @@ noncomputable def frobT (q k : Fin n → V) : ℝ :=
 
 theorem frobL_eq (q k : Fin n → V) (b : OrthonormalBasis (Fin N) ℝ V) :
     ∑ t, ‖formL q k (b t)‖ ^ 2 = frobL q k := by
-  sorry
+  simp_rw [formL_apply, ← real_inner_self_eq_norm_sq]
+  rw [sum_inner_gen, frobL]
 
 theorem frobT_eq (q k : Fin n → V) (b : OrthonormalBasis (Fin N) ℝ V) :
     ∑ t, ‖formT q k (b t)‖ ^ 2 = frobT q k := by
-  sorry
+  have h : ∀ t, ‖formT q k (b t)‖ ^ 2 = (1 / 4 : ℝ) * (⟪formL q k (b t), formL q k (b t)⟫
+      - 2 * ⟪formL q k (b t), formLt q k (b t)⟫ + ⟪formLt q k (b t), formLt q k (b t)⟫) := by
+    intro t
+    rw [← real_inner_self_eq_norm_sq]
+    simp only [formT, LinearMap.smul_apply, LinearMap.sub_apply, inner_smul_left,
+      inner_smul_right, inner_sub_left, inner_sub_right, conj_trivial]
+    rw [real_inner_comm (formLt q k (b t)) (formL q k (b t))]
+    ring
+  simp_rw [h, ← Finset.mul_sum, Finset.sum_add_distrib, Finset.sum_sub_distrib,
+    ← Finset.mul_sum]
+  simp_rw [formL_apply, formLt_apply]
+  rw [sum_inner_gen, sum_inner_gen, sum_inner_gen, frobT, frobL]
+  have e : ∑ i, ∑ j, ⟪q i, q j⟫ * ⟪k i, k j⟫ = ∑ i, ∑ j, ⟪k i, k j⟫ * ⟪q i, q j⟫ := by
+    simp_rw [mul_comm]
+  rw [e]
+  ring
 
 /-- The profile `(a, b, c, d)` and the relation-(1) error of a general form. -/
 noncomputable def gA (q k : Fin n → V) : ℝ := frobT q k / frobL q k
