@@ -32,7 +32,17 @@ theorem gram_slln [IsProbabilityMeasure μ] {m : ℕ} (Z : ℕ → Ω → (Fin m
     ∀ᵐ ω ∂μ, ∀ a b, Tendsto
       (fun N : ℕ => (N : ℝ)⁻¹ * ∑ j ∈ range N, Z j ω a * Z j ω b) atTop
       (𝓝 (if a = b then 1 else 0)) := by
-  sorry
+  classical
+  rw [ae_all_iff]
+  intro a
+  rw [ae_all_iff]
+  intro b
+  have hm : Measurable (fun z : Fin m → ℝ => z a * z b) :=
+    (measurable_pi_apply a).mul (measurable_pi_apply b)
+  have h := strong_law_ae_real (fun j ω => Z j ω a * Z j ω b) (hint a b)
+    (fun i j hij => (hindep hij).comp hm hm)
+    (fun j => (hident j).comp hm)
+  simpa only [hmom a b, div_eq_mul_inv, mul_comm] using h
 
 /-- Proof step 4 (continuity). If `G N ω → G∞` almost surely and `Φ` is
 continuous at `G∞`, then `Φ (G N ω) → Φ G∞` almost surely. -/
@@ -40,7 +50,8 @@ theorem limit_of_continuousAt {X Y : Type*} [TopologicalSpace X] [TopologicalSpa
     (G : ℕ → Ω → X) (Ginf : X) (Φ : X → Y) (hΦ : ContinuousAt Φ Ginf)
     (hG : ∀ᵐ ω ∂μ, Tendsto (fun N => G N ω) atTop (𝓝 Ginf)) :
     ∀ᵐ ω ∂μ, Tendsto (fun N => Φ (G N ω)) atTop (𝓝 (Φ Ginf)) := by
-  sorry
+  filter_upwards [hG] with ω hω
+  exact hΦ.tendsto.comp hω
 
 /-- Proof step 6 (position on `Θ`). Let `ρ_i` be pairwise independent and
 identically distributed, `h₁ h₂ : ℝ → ℝ` measurable with `h₁ ∘ ρ₀`, `h₂ ∘ ρ₀`
@@ -57,6 +68,17 @@ theorem ratio_slln [IsProbabilityMeasure μ] (ρ : ℕ → Ω → ℝ)
     ∀ᵐ ω ∂μ, Tendsto
       (fun n : ℕ => (∑ i ∈ range n, h₁ (ρ i ω)) / (∑ i ∈ range n, h₂ (ρ i ω))) atTop
       (𝓝 ((∫ ω, h₁ (ρ 0 ω) ∂μ) / ∫ ω, h₂ (ρ 0 ω) ∂μ)) := by
-  sorry
+  have hA := strong_law_ae_real (fun i ω => h₁ (ρ i ω)) hi₁
+    (fun i j hij => (hindep hij).comp hm₁ hm₁)
+    (fun i => (hident i).comp hm₁)
+  have hB := strong_law_ae_real (fun i ω => h₂ (ρ i ω)) hi₂
+    (fun i j hij => (hindep hij).comp hm₂ hm₂)
+    (fun i => (hident i).comp hm₂)
+  filter_upwards [hA, hB] with ω hAω hBω
+  have hquot := hAω.div hBω (ne_of_gt hpos)
+  apply hquot.congr'
+  filter_upwards [eventually_gt_atTop (0 : ℕ)] with n hn
+  have hn' : (n : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.ne_of_gt hn)
+  exact div_div_div_cancel_right₀ hn' _ _
 
 end Odesky
