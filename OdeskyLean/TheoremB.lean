@@ -17,7 +17,7 @@ The Gram entries of the rows of `Q, K` are `N⁻¹ ∑_{j<N} q_j i q_j l`, etc.
 * `gram_limit`: almost surely, `⟨Q_i, Q_l⟩ → δ_il (fv_i + gv_i)`,
   `⟨K_i, K_l⟩ → δ_il (fv_i + gv_i)`, `⟨Q_i, K_l⟩ → δ_il (fv_i - gv_i)`.
 * `blocks_of_limit_gram`: rows with exactly these Gram entries form an
-  orthogonal sum of rank-one forms `L = Kᵀ Q` with `α_i = fv_i`, `β_i = gv_i`.
+  sum of rank-one forms on orthogonal planes `L = Kᵀ Q` with `α_i = fv_i`, `β_i = gv_i`.
 -/
 
 open MeasureTheory ProbabilityTheory Filter Finset Topology RealInnerProductSpace
@@ -118,7 +118,7 @@ theorem gram_limit [IsProbabilityMeasure μ] {n : ℕ} (fv gv : Fin n → ℝ)
 
 /-- Theorem B, limit configuration: rows `q_i, k_i ∈ ℝᴺ` with
 `⟪q_i, q_l⟫ = ⟪k_i, k_l⟫ = δ_il (fv_i + gv_i)` and `⟪q_i, k_l⟫ = δ_il (fv_i - gv_i)`
-give an orthogonal sum of rank-one forms with `L x = ∑ ⟪q_i, x⟫ k_i`,
+give a sum of rank-one forms on orthogonal planes with `L x = ∑ ⟪q_i, x⟫ k_i`,
 `α_i = fv_i` and `β_i = gv_i`. -/
 theorem blocks_of_limit_gram {n N : ℕ} (fv gv : Fin n → ℝ)
     (hf : ∀ i, 0 < fv i) (hg : ∀ i, 0 < gv i)

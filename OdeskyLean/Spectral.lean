@@ -4,7 +4,7 @@ import OdeskyLean.Rearrangement
 /-!
 # Layer 5 (gap G1): from eigenvector equations to spectra and norms
 
-For an orthogonal sum of rank-one forms on `ℝᴺ` with `2n ≤ N` and every tilt
+For a sum of rank-one forms on orthogonal planes on `ℝᴺ` with `2n ≤ N` and every tilt
 `|t_i| < 1`:
 
 * the characteristic polynomial of `S` is `∏ (X - α_i)(X + β_i) · X^(N-2n)`, so

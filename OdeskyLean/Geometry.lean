@@ -1,7 +1,7 @@
 import Mathlib
 
 /-!
-# Layer 3: block spectra of an orthogonal sum of rank-one forms
+# Layer 3: block spectra of a sum of rank-one forms on orthogonal planes
 
 `L = ∑ s_i u_i v_iᵀ` acts on `ℝᴺ` by `L x = ∑ s_i ⟪v_i, x⟫ u_i`.
 Its symmetric part `S = (L + Lᵀ)/2` and antisymmetric part `T = (L - Lᵀ)/2` are
@@ -25,7 +25,7 @@ variable {n N : ℕ}
 
 local notation "V" => EuclideanSpace ℝ (Fin N)
 
-/-- An orthogonal sum of rank-one forms: weights `s_i > 0`, unit vectors
+/-- A sum of rank-one forms on orthogonal planes: weights `s_i > 0`, unit vectors
 `u_i, v_i`, and mutually orthogonal planes `span(u_i, v_i)`. -/
 structure OrthoBlocks (n N : ℕ) where
   s : Fin n → ℝ

@@ -4,7 +4,7 @@ import OdeskyLean.Spectral
 /-!
 # Theorem A for the operator itself
 
-Let `L` be an orthogonal sum of rank-one forms on `ℝᴺ`, with `2n ≤ N`, `n ≥ 1`,
+Let `L` be a sum of rank-one forms on orthogonal planes on `ℝᴺ`, with `2n ≤ N`, `n ≥ 1`,
 and every tilt `|t_i| < 1`. Its spectral lists are given here as any decreasing
 lists with the right multisets of values:
 

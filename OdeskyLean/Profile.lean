@@ -3,7 +3,7 @@ import OdeskyLean.Rearrangement
 /-!
 # Layer 2: Theorem A in terms of the profile `(a, b, c, d)`
 
-For an orthogonal sum of rank-one forms with block eigenvalues `α, β > 0`,
+For a sum of rank-one forms on orthogonal planes with block eigenvalues `α, β > 0`,
 Layer 3 shows: `λ₊` is `α` sorted decreasingly, `λ₋` is `β` sorted decreasingly,
 `‖L‖² = ∑ (α_i + β_i)²`, and `‖T‖² = 2 ∑ α_i β_i`. This file takes those
 values as the definition of the profile and proves Theorem A for it.

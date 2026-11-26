@@ -4,7 +4,7 @@ import Mathlib
 # Layer 1: the rearrangement core of Theorem A
 
 Finite lists `α β : Fin n → ℝ` are the block eigenvalues `α_i = σ_i(1+t_i)/2`,
-`β_i = σ_i(1-t_i)/2` of an orthogonal sum of rank-one forms. Sorting is
+`β_i = σ_i(1-t_i)/2` of a sum of rank-one forms on orthogonal planes. Sorting is
 expressed by a permutation that makes the list antitone, so no sorting function
 is needed.
 -/
