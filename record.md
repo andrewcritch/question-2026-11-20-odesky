@@ -292,3 +292,12 @@ Checked: numerically by the supervising agent (eigenvalues, singular values, pro
 
 Other fixes from the same review round (Codex astra/high, Grok 4.7; Antigravity sent no answer at first): Theorem 2's sign hypothesis now matches Lean ("on $\mathbb R$"); the §5 summary keeps the sign condition; the latent sequence $\rho_1,\rho_2,\dots$ is one i.i.d. sequence (the coupling `cd_limit_ae` uses); "squared Frobenius norms"; the correlated special case is stated entry by entry, with $|r|<1$; the unformalized remarks (joint-law position, "independent blocks", any rank $n$) are removed or restated as what is checked.
 - R21 follow-up (Antigravity faithfulness report): `Bridge.lean` adds `exists_svd_rows` (every rank-$n$ $L=K^\top Q$ has the form $\sum\sigma_iu_iv_i^\top$ with orthonormal $u,v$), `gprof_of_formL_eq` (profile, spectral lists and error depend only on $L$), and `lists_isometry` (spectral lists invariant under isometries, so relation (1) itself is invariant). Proved by a `codex-node` delegate on sol/low; accepted (only `sorry` removed; full build; standard axioms). The answer now requires $u_i\ne\pm v_i$ and $n\ge1$ explicitly.
+
+## R22. Second faithfulness round (Codex astra/high, Grok 4.7, Antigravity carbon-high; all answered)
+
+All three found the core results faithful (Theorem 1 within orthogonal-plane sums; Theorem 2's conditional convergence and its chain to an actual form; §1 identities; log-determinant). Fixes applied, each checked by the supervising agent:
+- Correlated special case: the entry law equals that of $\sqrt N(Q+K,K-Q)$ in the ensemble only for $f=(1+r)/2$, $g=(1-r)/2$ (all three); restated, and the baseline as the case $r=0$, $f=g=\tfrac12$.
+- Theorem 1(3): the similar-ordering hypothesis now governs the $d=0$ / $c=0$ clauses too (Antigravity: without it they are false, e.g. blocks $(10,1)$, $(2,5)$ give $d=0$ with $t_2<0$).
+- Removed the uncovered claim that some non-orthogonal-plane forms satisfy relations (1) and (2) (true by R21, not formalized).
+- Singular values "in any order" (`exists_svd_rows` does not sort); $n\ge1$ stated in §1 and §3; fixed-ratio wording handles $f=g$; the last caveat lists all measurements.
+- New `Extras.lean` (supervising agent): `weighted_tilt`, `logratio_sum_zero`, `eq_zero_of_sum_zero_of_const`, `const_one_sub_two_a`, `formL_isometry`. Full build; standard axioms.
