@@ -271,3 +271,15 @@ Raw $L=K^\top Q$, $N=1280$, $n=64$, 720 heads; script `delegations/round1_brief/
 Consequence: the structure of R13/R15/R16/R18 holds at the largest width measured; $\tau$ and the diagonal share rise slightly with width (GPT-2 small, medium, large: $\tau$ 0.76, 0.77, 0.78; diagonal share 0.18, 0.21, 0.24).
 
 Checked: numerical, by the supervising agent, 2026-11-25.
+
+## R20. Lean: every mathematical claim of the answer is checked (supervising agent, 2026-11-25)
+
+New files, each proved by a Claude `opus` subagent (Codex delegates could not launch: the macOS Automation permission for the current Claude Code binary was missing) except `Ratio.lean`, proved by the supervising agent. Accepted by the supervising agent: only `sorry` lines (and `open` lines) removed relative to the skeleton; full `lake build` succeeds; `#print axioms` on all headline theorems gives only `propext`, `Classical.choice`, `Quot.sound`.
+- `TheoremAExtra.lean`: Theorem 1(3) clause for the operator (`main_d_eq_zero_iff`, `main_c_eq_zero_iff`); Theorem 1(5) (`theta_attained`, one block in ℝ²).
+- `TheoremBExtra.lean`: `similarlyOrdered_of_monotone`, `limit_a_eq_b`, `limit_mem_Theta`, `cd_eq_ratio`, `cd_limit_ae` (the chained $n\to\infty$ limit of $c(L_\infty)-d(L_\infty)$).
+- `Identities.lean`: $a=\tfrac12(1-m_2-q)$, $a+b+c+d=1$ (via: $S$ has at most $n$ positive and $n$ negative eigenvalues), $a-b=c+d-m_2-q$, for every $L=\sum\sigma_iu_iv_i^\top$ with orthonormal $u,v$.
+- `Congruence.lean`: same $(\sigma,W)$ implies an isometry carrying $u\mapsto u'$, $v\mapsto v'$; profile and relation-(1) error invariant.
+- `LogDet.lean`: $\prod\sigma(T)_k^2=\prod\lambda_{+,k}\lambda_{-,k}=\det G/4^n$ for linearly independent rows, and the log identity.
+- `SpecialCases.lean`: constant $f=g$ gives $(\tfrac12,\tfrac12,0,0)$; the correlated model's $(X+K,K-X)$ has the law of independent Gaussians with variances $2(1\pm r)$.
+- `Ratio.lean`: the fixed-ratio formula differs from the iterated limit by a relative amount at most $1/\kappa$.
+Not formalized, because not mathematical theorems: the §4 measurements, and the fixed-ratio formula itself (a numerical observation; the answer now says so). The "signed spike" special case was removed from the answer as informal.

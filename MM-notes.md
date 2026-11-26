@@ -6,4 +6,4 @@
 - **State which LayerNorm convention a measurement uses.** Raw $L$ and LayerNorm-folded $L$ give different fractions of heads off $\Theta$ (record R3).
 - **Do not cite the top-5% symmetry score as evidence of symmetric pairs.** Its Gaussian-baseline value is 0.79, equal to the trained value (record R8 correction).
 - **Do not model the off-diagonal heavy tail of $W$ as symmetric spikes.** The tail is skew and sits in the bottom singular block (record R11); it carries little weight in $q$ and in the profile.
-- **State the Lean scope of Theorem B exactly.** Lean checks Theorem B conditionally on $\rho$ (fixed $f_i,g_i>0$), as $N\to\infty$ with $n$ fixed (`theoremB_ae`, R17); the $n\to\infty$ limit of $c-d$ is a separate theorem (`ratio_slln`) and is not chained to the profile limit. Theorem A (R13) is checked in full, with hypotheses $n\ge1$, $2n\le N$, $|t_i|<1$.
+- **Every mathematical claim of the answer is checked in Lean (R20).** Keep it that way: a new mathematical claim in the answer needs a Lean theorem before it ships; empirical claims must be labelled as measurements.
