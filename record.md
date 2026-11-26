@@ -301,3 +301,7 @@ All three found the core results faithful (Theorem 1 within orthogonal-plane sum
 - Removed the uncovered claim that some non-orthogonal-plane forms satisfy relations (1) and (2) (true by R21, not formalized).
 - Singular values "in any order" (`exists_svd_rows` does not sort); $n\ge1$ stated in §1 and §3; fixed-ratio wording handles $f=g$; the last caveat lists all measurements.
 - New `Extras.lean` (supervising agent): `weighted_tilt`, `logratio_sum_zero`, `eq_zero_of_sum_zero_of_const`, `const_one_sub_two_a`, `formL_isometry`. Full build; standard axioms.
+
+## R23. Third faithfulness round
+
+Grok 4.7: clean pass (no false claim, no claim beyond its theorems). Codex astra/high: qualified pass; fixed the §5 wording on the question's unnormalized model (now "entry by entry, up to the factor $\sqrt N$") and stated the degenerate-head convention ($x/0=0$, zero padding; error statements assume $T\ne0$). Antigravity carbon-high (partial report, interrupted when the laptop slept): no false claim; Theorem 2 now says "fix the values of $\rho$" (what Lean proves) instead of "condition on $\rho$"; its other findings harmless. Remaining stated caveat: the step from the entrywise law to the question's unnormalized model (profile scale invariance, array law) is not formalized.
