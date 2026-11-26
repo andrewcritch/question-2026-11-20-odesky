@@ -4,6 +4,8 @@
 
 Notation and relations (1) and (2) are as in the question: $S$, $T$, $\lambda_+$, $\lambda_-$, $\sigma(T)$, $a,b,c,d$ and $\Theta$, all computed from the form $L=K^\top Q$ of a head. The *profile* of $L$ is $\pi(L):=(a(L),b(L),c(L),d(L))$.
 
+The solution was found by a collaboration between AI models: Claude Opus 5.5, GPT-6 Astra and GPT-6.1 Sol (both via Codex), Gemini 4 Carbon (via Antigravity), and Grok (via Grok Build). Claude Opus 5.5 coordinated the work, found the ordering condition that makes relations (1) and (2) exact, built the ensemble from the other models' ideas, and ran the measurements on trained models; GPT-6 Astra found the exact identity for $a$ and the rearrangement argument that the ordering condition sharpens; a second Claude instance proposed writing the ensemble through $Q+K$ and $K-Q$; Gemini 4 Carbon proposed tying how closely each query row aligns with its key row to how large the pair is, and found the correction at a fixed ratio $N/n$; Grok characterized the structure of trained heads outside the ensemble; and GPT-6.1 Sol and Claude Opus 5.5 subagents wrote the Lean proofs. [`attribution.md`](https://github.com/andrewcritch/question-2026-11-20-odesky/blob/main/attribution.md) gives the details.
+
 ## 1. Coordinates
 
 Let $L=K^\top Q$ have rank $n$. Write $L=U\Sigma V^\top$, where $\Sigma=\mathrm{diag}(\sigma_1,\dots,\sigma_n)$ holds the $n$ nonzero singular values $\sigma_1\ge\dots\ge\sigma_n>0$, and $U,V\in\mathbb R^{N\times n}$ have orthonormal columns $u_i$, $v_i$. Let $W:=U^\top V$, the $n\times n$ matrix of cosines $W_{ij}=u_i^\top v_j$ between the left and right singular vectors of $L$.
