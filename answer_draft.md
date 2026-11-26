@@ -47,7 +47,7 @@ $$Q+K=2\,\mathrm{diag}\bigl(\sqrt{f(\rho_1)},\dots,\sqrt{f(\rho_n)}\bigr)P/\sqrt
 
 In words: row $i$ of $Q+K$ has squared norm close to $4f(\rho_i)$ (a "match" strength), row $i$ of $K-Q$ has squared norm close to $4g(\rho_i)$ (a "mismatch" strength), and $f$ and $g$ are both nondecreasing in a shared latent parameter $\rho_i$. Special cases of the ensemble:
 - $f,g$ constant: take the question's correlated Gaussian model $K=rQ+\sqrt{1-r^2}\,G$, with $|r|<1$ and $Q,G$ having independent standard Gaussian entries. For each entry, $(Q+K,\;K-Q)$ has the law of two independent centered Gaussians with variances $2(1+r)$ and $2(1-r)$. For $f=(1+r)/2$ and $g=(1-r)/2$, this is the law of the corresponding entry of $(2\sqrt f\,P,\;2\sqrt g\,M)$, i.e., of $\sqrt N\,(Q+K,\;K-Q)$ in the ensemble.
-- $f=g$ constant: for $r=0$, the question's model has $Q$ and $K$ with independent standard Gaussian entries, and the previous item matches it with $f=g=\tfrac12$. This case is the *Gaussian baseline*. By Theorem 2, its limit profile is the midpoint $(\tfrac12,\tfrac12,0,0)$ of $\Theta$.
+- $f=g$ constant: for $r=0$, the question's model has $Q$ and $K$ with independent standard Gaussian entries, and the previous item matches it entry by entry, up to the factor $\sqrt N$, with $f=g=\tfrac12$. This case is the *Gaussian baseline*. By Theorem 2, its limit profile is the midpoint $(\tfrac12,\tfrac12,0,0)$ of $\Theta$.
 
 ## 4. Comparison with trained heads
 
@@ -70,11 +70,11 @@ Reading:
 
 ## 5. Summary
 
-Relations (1) and (2) hold exactly for the forms in normal form (Theorem 1). For the Gaussian ensemble of §3 with $f-g$ of one sign, the profile of $L$ converges to the profile of a form in normal form as the embedding dimension $N$ grows (Theorem 2), and the question's correlated Gaussian ensemble is a special case of that ensemble. Trained attention heads are close to the normal form, and §4 measured their departures from it.
+Relations (1) and (2) hold exactly for the forms in normal form (Theorem 1). For the Gaussian ensemble of §3 with $f-g$ of one sign, the profile of $L$ converges to the profile of a form in normal form as the embedding dimension $N$ grows (Theorem 2), and, entry by entry, the question's correlated Gaussian model has the same law as that ensemble with constant $f,g$, up to the factor $\sqrt N$. Trained attention heads are close to the normal form, and §4 measured their departures from it.
 
 ## 6. Lean verification
 
-Every theorem and identity in §1–§3 is checked in Lean 4 with Mathlib (hereafter, Lean), in [`lean/`](https://github.com/andrewcritch/question-2026-11-20-odesky/tree/main/lean), with no unproved steps; `#print axioms` on each headline theorem gives only `propext`, `Classical.choice` and `Quot.sound`. In these checks, Lean computes the profile from decreasingly sorted eigenvalues of $S$ and $T^\top T$ (Mathlib's sorted eigenvalues, or decreasing lists of the characteristic-polynomial roots, which a lemma identifies) and from squared Frobenius norms. For the limit form $L_\infty$ and the special cases, Lean works with the formulas of Theorem 1 in terms of $\alpha$ and $\beta$, which `Main.lean` and `Limit.lean` identify with the profile of the operator.
+Every theorem and identity in §1–§3 is checked in Lean 4 with Mathlib (hereafter, Lean), in [`lean/`](https://github.com/andrewcritch/question-2026-11-20-odesky/tree/main/lean), with no unproved steps; `#print axioms` on each headline theorem gives only `propext`, `Classical.choice` and `Quot.sound`. In these checks, Lean computes the profile from decreasingly sorted eigenvalues of $S$ and $T^\top T$ (Mathlib's sorted eigenvalues, or decreasing lists of the characteristic-polynomial roots, which a lemma identifies) and from squared Frobenius norms. For degenerate heads, Lean pads missing entries of the spectral lists with zeros and takes $x/0=0$; the statements about the relation-(1) error assume $T\ne0$, where its denominator is positive. For the limit form $L_\infty$ and the special cases, Lean works with the formulas of Theorem 1 in terms of $\alpha$ and $\beta$, which `Main.lean` and `Limit.lean` identify with the profile of the operator.
 
 | claim | Lean theorems | file |
 |---|---|---|
