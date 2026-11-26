@@ -8,10 +8,10 @@ Written 2026-11-24. Sources: the project record (it names a source for most resu
 |---|---|---|
 | Supervising agent | Claude Opus 5.5 | all |
 | Codex node | gpt-6-astra (high effort, per the node configs) | 1, 2, 3 |
-| Claude node | not recorded in the launch | 1 only; Python was blocked in it, so the supervising agent ran its scripts |
+| Claude node | Claude Opus 5.5 (from its transcript; not recorded in the launch) | 1 only; Python was blocked in it, so the supervising agent ran its scripts |
 | Claude subagents | opus | 2, 3 |
-| Grok node | Grok Build's default model (no `--model` passed; name not recorded) | 1, 2, 3 |
-| Antigravity node | gemini-4-carbon-high in rounds 2 and 3; not recorded for round 1 | 1, 3; in round 2 its turn ended twice without an answer |
+| Grok node | Grok 4.7 (Grok Build's default; from the node logs, `grok-4.7` / `grok-4.7-build`) | 1, 2, 3 |
+| Antigravity node | gemini-4-carbon in round 1 (from the Antigravity log), gemini-4-carbon-high in rounds 2 and 3 | 1, 3; in round 2 its turn ended twice without an answer |
 
 ## Ideas, by source
 
