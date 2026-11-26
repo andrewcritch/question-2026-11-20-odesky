@@ -85,8 +85,8 @@ So $Q+K$ and $K-Q$ have row strengths $f(\rho_i)$ and $g(\rho_i)$, both increasi
 
 ## Limits
 
-- **Machine-checked.** Lean 4 with Mathlib checks, with no unproved steps: Theorem A, with the profile from the spectra of $S$, $T^\top T$ and Frobenius norms; Theorem B's limit for any fixed $f_i,g_i>0$ and i.i.d. Gaussian entries of $P,M$; and the strong law for a ratio of sample sums used in Theorem C. Not machine-checked: proof step 6's identification of $c(L_\infty)-d(L_\infty)$ with that ratio, the last sentence of Theorem B, the Remark, and the special cases.
-- **Order of limits.** Theorem B takes $N\to\infty$ first. At $N=\kappa n$, $n\to\infty$, the limit moves by order $1/\kappa$: for constant $f=A$, $g=B$, $1-2a\to(1+1/\kappa)(A-B)^2/\bigl((A+B)^2+(A-B)^2/\kappa\bigr)$ rather than $(A-B)^2/(A+B)^2$. Measured models have $\kappa=12$–$20$.
+- **Machine-checked.** Lean 4 with Mathlib checks every theorem, the Remark and the special cases above, with no unproved steps, the profile computed from sorted eigenvalues and Frobenius norms. Not theorems, so not checked: the measurements below, and the fixed-ratio formula, which was observed numerically (its $1/\kappa$ comparison is checked).
+- **Order of limits.** Theorem B takes $N\to\infty$ first. At $N=\kappa n$, $n\to\infty$, simulations show the limit moving by order $1/\kappa$: for constant $f=A$, $g=B$, $1-2a\to(1+1/\kappa)(A-B)^2/\bigl((A+B)^2+(A-B)^2/\kappa\bigr)$ rather than $(A-B)^2/(A+B)^2$. Measured models have $\kappa=12$–$20$.
 - **Trained heads are near the normal form.** Raw $L=K^\top Q$ (LayerNorm gains not multiplied in) in GPT-2 small (144 heads), GPT-2 medium (384) and Pythia-160m (144). Write $L=U\,\mathrm{diag}(\sigma)V^\top$ with $\sigma\in\mathbb R^n$ the nonzero singular values and $U^\top U=V^\top V=I_n$; with $W:=U^\top V$, $L$ is a sum of rank-one forms on orthogonal planes iff $W$ is diagonal (for some $U,V$), with $t_i=W_{ii}$. Medians:
   - share of $\|W\|^2$ on the diagonal: 0.18, 0.21, 0.13 (independent Gaussian: 0.016);
   - Kendall $\tau$ of $\alpha,\beta$ (1: similarly ordered): 0.76, 0.77, 0.85;
