@@ -283,3 +283,11 @@ New files, each proved by a Claude `opus` subagent (Codex delegates could not la
 - `SpecialCases.lean`: constant $f=g$ gives $(\tfrac12,\tfrac12,0,0)$; the correlated model's $(X+K,K-X)$ has the law of independent Gaussians with variances $2(1\pm r)$.
 - `Ratio.lean`: the fixed-ratio formula differs from the iterated limit by a relative amount at most $1/\kappa$.
 Not formalized, because not mathematical theorems: the §4 measurements, and the fixed-ratio formula itself (a numerical observation; the answer now says so). The "signed spike" special case was removed from the answer as informal.
+
+## R21. Counterexample: relations (1) and (2) do not force orthogonal planes (Codex faithfulness review, checked by the supervising agent)
+
+$Q=\begin{psmallmatrix}0&1&0&1\\0&0&1&0\end{psmallmatrix}$, $K=\begin{psmallmatrix}1&0&0&0\\0&1&0&0\end{psmallmatrix}$, $L=K^\top Q$ ($N=4$, $n=2$, rows of $[Q;K]$ independent). Eigenvalues of $S$: $\pm p,\pm q$ with $p=(\sqrt5+1)/4$, $q=(\sqrt5-1)/4$; singular values of $T$: $p,p,q,q$. So relation (1) is exact and $\pi(L)=(\tfrac12,\tfrac12,0,0)\in\Theta$. But $L^2\ne0$, $L^3=0$, and a sum of rank-one forms on orthogonal planes with $L$ nilpotent needs every $t_i=0$, which forces $L^2=0$. So $L$ is not such a sum. Consequence: Theorem 1(4) characterizes $\Theta$ only among sums of rank-one forms on orthogonal planes; the answer's earlier sentence "the forms that behave like rank-one forms are exactly the forms in normal form" was false and is now restricted.
+
+Checked: numerically by the supervising agent (eigenvalues, singular values, profile, $L^2$, $L^3$). Not formalized in Lean; the answer does not state the counterexample.
+
+Other fixes from the same review round (Codex astra/high, Grok 4.7; Antigravity sent no answer at first): Theorem 2's sign hypothesis now matches Lean ("on $\mathbb R$"); the §5 summary keeps the sign condition; the latent sequence $\rho_1,\rho_2,\dots$ is one i.i.d. sequence (the coupling `cd_limit_ae` uses); "squared Frobenius norms"; the correlated special case is stated entry by entry, with $|r|<1$; the unformalized remarks (joint-law position, "independent blocks", any rank $n$) are removed or restated as what is checked.
