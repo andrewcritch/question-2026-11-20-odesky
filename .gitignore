@@ -1,0 +1,5 @@
+.DS_Store
+paper.pdf
+delegations/lean/logs/
+lean/.lake/
+__pycache__/

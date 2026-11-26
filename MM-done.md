@@ -1,0 +1,13 @@
+# MM done: closed work, with how it closed
+- [x] Round 1 (2026-11-24): four providers proposed ensembles. Closed with R4–R9 recorded; answers in `delegations/answers/round1/`.
+- [x] Round 2 (2026-11-24): construct one ensemble for both signs of $a-b$. Codex, Grok, Claude subagent answered (R10–R12); Antigravity sent no answer (turn ended twice without `answer.md`). Answers in `delegations/answers/round2/`.
+- [x] Round 3 (2026-11-24): keystone challenge of R13 and R14. Codex, Grok, Claude subagent confirmed the main claims and found two over-broad sentences, now corrected in the record; Antigravity confirmed the same and showed the joint proportional limit differs by $O(1/\kappa)$ (recorded in R14). Answers in `delegations/answers/round3/`.
+- [x] Second model (GPT-2 medium) measured: R15.
+- [x] First answer draft written: `answer_draft.md`.
+- [x] Ensemble chosen for the affirmative answer: the comonotone channel ensemble $\mathcal E(\mu;f,g)$ of R14, with the normal form of R13; departures on GPT-2 quantified (R13 Kendall $\tau$, R4/R10 for $q$, R15).
+- [x] Cleanup after rounds 1–3 (Skill mm:3, 2026-11-24): no leftover process groups found; memory guard halted no jobs. Nodes kept open.
+- [x] Departures from the limit ensemble quantified on three models (R13 Kendall τ, R4/R10 for q, R15, R16); summarized in `answer_draft.md` §4.
+- [x] Third model (Pythia-160m, RoPE) measured: R16.
+- [x] Lean formalization (R17, 2026-11-25): Theorem A checked in full for the operator; Theorem B checked up to G2 (continuity of sorted eigenvalues). Project `lean/` (own git repo); delegate reports in `delegations/answers/lean1/`; role prompts in `delegations/lean/`.
+- [x] G2 formalized (R17 final, 2026-11-25): Weyl's inequality, nearby orthonormal family, general profile, perturbation bound, exact limit, `theoremB_ae`. No `sorry` remains in `lean/`.
+- [x] ALiBi model (BLOOM-560m, R18) and a larger model (GPT-2 large, R19) measured.

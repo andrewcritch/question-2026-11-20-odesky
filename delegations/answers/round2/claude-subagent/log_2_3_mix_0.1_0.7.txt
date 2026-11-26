@@ -1,0 +1,29 @@
+variant=mix nu=3.0 rho=0.1 fspike=0.7 nsim=2; heads with clipped W (any sim): 43/144
+FIT  PR      meas +45.703 [+24.599,+52.484]  model +46.870 [+27.394,+53.565]  corr +0.956
+FIT  tbar    meas +0.003 [-0.192,+0.243]     model +0.003 [-0.208,+0.261]     corr +0.996
+FIT  tstd    meas +0.092 [+0.057,+0.246]     model +0.094 [+0.056,+0.232]     corr +0.980
+FIT  offrms  meas +0.048 [+0.042,+0.054]     model +0.047 [+0.041,+0.054]     corr +0.955
+FIT  q       meas +0.007 [-0.029,+0.034]     model +0.008 [-0.038,+0.035]     corr +0.940
+pred err1    meas +0.059 [+0.037,+0.156]     model +0.054 [+0.034,+0.121]     corr +0.781
+pred a       meas +0.481 [+0.412,+0.504]     model +0.477 [+0.425,+0.504]     corr +0.978
+pred b       meas +0.494 [+0.439,+0.512]     model +0.499 [+0.464,+0.529]     corr +0.932
+pred amb     meas -0.012 [-0.056,+0.020]     model -0.022 [-0.075,+0.019]     corr +0.847
+pred cmd     meas +0.000 [-0.066,+0.062]     model +0.000 [-0.045,+0.066]     corr +0.984
+pred cpd     meas +0.024 [+0.003,+0.129]     model +0.015 [+0.002,+0.086]     corr +0.976
+pred mincd   meas +0.000 [+0.000,+0.004]     model +0.000 [+0.000,+0.000]     corr +0.293
+pred diag    meas +0.184 [+0.039,+0.552]     model +0.179 [+0.039,+0.503]     corr +0.961
+pred kurt    meas +20.615 [+4.409,+54.444]   model +16.083 [+14.267,+18.667]  corr +0.100
+pred sym     meas +0.804 [+0.676,+0.907]     model +0.597 [+0.382,+0.779]     corr +0.741
+pred m2      meas +0.033 [+0.006,+0.162]     model +0.031 [+0.007,+0.150]     corr +0.991
+sign agreement of a-b: 0.8402777777777778  heads a>b meas 44  model 31
+err1 median ratio model/meas 0.8853745621070228
+a>b err1 meas +0.046 [+0.035,+0.161] model +0.051 [+0.033,+0.116] sym meas +0.716 [+0.587,+0.801]
+a<b err1 meas +0.063 [+0.039,+0.147] model +0.054 [+0.035,+0.124] sym meas +0.822 [+0.760,+0.917]
+worst L0H7 err1 meas 0.362 model 0.089 amb +0.141/-0.025 kurt 69.6/31.9
+worst L0H10 err1 meas 0.190 model 0.057 amb +0.044/+0.008 kurt 111.7/29.5
+worst L0H3 err1 meas 0.381 model 0.136 amb +0.195/+0.088 kurt 42.6/28.4
+worst L3H6 err1 meas 0.039 model 0.097 amb -0.009/-0.042 kurt 31.6/15.6
+worst L0H4 err1 meas 0.330 model 0.138 amb +0.161/+0.100 kurt 28.7/28.2
+worst L3H7 err1 meas 0.072 model 0.172 amb -0.046/-0.120 kurt 22.5/12.9
+worst L1H7 err1 meas 0.056 model 0.120 amb -0.033/-0.090 kurt 3.9/15.8
+worst L11H10 err1 meas 0.069 model 0.032 amb -0.011/-0.009 kurt 135.2/15.2
