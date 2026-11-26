@@ -305,3 +305,14 @@ All three found the core results faithful (Theorem 1 within orthogonal-plane sum
 ## R23. Third faithfulness round
 
 Grok 4.7: clean pass (no false claim, no claim beyond its theorems). Codex astra/high: qualified pass; fixed the §5 wording on the question's unnormalized model (now "entry by entry, up to the factor $\sqrt N$") and stated the degenerate-head convention ($x/0=0$, zero padding; error statements assume $T\ne0$). Antigravity carbon-high (partial report, interrupted when the laptop slept): no false claim; Theorem 2 now says "fix the values of $\rho$" (what Lean proves) instead of "condition on $\rho$"; its other findings harmless. Remaining stated caveat: the step from the entrywise law to the question's unnormalized model (profile scale invariance, array law) is not formalized.
+
+## R24. Full Antigravity report of the third faithfulness round (fixes)
+
+Antigravity carbon-high, rerun to completion (`delegations/answers/faithfulness3/agy-full.md`): every mathematical claim in §1–§3 and §7 is true and its core is proved in Lean; it found one wrong §6 sentence and several unchecked bridging steps. Fixes (supervising agent; full build, standard axioms):
+- §6 sentence was wrong: no Lean theorem assumes $T\ne0$ (`gErr` is $0/0=0$ when $T=0$), and zero padding of `lamM` holds only for $n\le N$ (truncated subtraction). Reworded; `GenProfile.lean` docstring corrected.
+- Existence of $L_\infty$ was only conditional: `limit_config` made public, and new `exists_limit_form` (`TheoremBFull.lean`) gives an `OrthoBlocks` with $\alpha=f$, $\beta=g$, $|t_i|<1$ for every $f,g>0$ and $2n\le N$.
+- Scale invariance, the R23 caveat, is now proved: new `Scaling.lean`, `gprof_smul` (for $c\ne0$, the profile and the relation-(1) error of $(cq,ck)$ equal those of $(q,k)$), via `eigenvalues_smul` (sorted eigenvalues of $s\cdot A$ are $s$ times those of $A$, $s>0$).
+- Entry law: new `ensemble_entry_law` ($(2\sqrt f P,2\sqrt g M)\sim\mathcal N(0,4f)\otimes\mathcal N(0,4g)$) and `correlated_eq_ensemble_entry` (the correlated model's entry law equals the ensemble entry's, $f=(1\pm r)/2$), in `SpecialCases.lean`.
+- Theorem 2 no longer claims "fixing $\rho$ is conditioning on $\rho$" (no joint-space formalization); it now says "almost surely over $P$ and $M$" for $N\to\infty$ and "almost surely over $\rho_1,\rho_2,\dots$" for $n\to\infty$, which is what `theoremB_ae` and `cd_limit_ae` state.
+- §1 now assumes $N\ge2n$ for all three bullets (Lean's `gA_sub_gB_identity`, `logratio_sum_zero` take it); matrix of stacked rows renamed $R$ (it clashed with $F=\sum\sigma_i^2$). §7 bound stated for $\kappa\ge1$ (Lean hypothesis).
+- Harmless (not changed): `cd_limit_ae` measurability hypotheses; Theorem 1 single-block versus $n$-block wording; unchained two-line corollaries (`limit_a_eq_b` with `theoremB_ae`).

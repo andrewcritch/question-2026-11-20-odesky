@@ -11,8 +11,9 @@ The spectral lists use Mathlib's decreasingly sorted eigenvalues of `S` and of
 * `lamM j = max (-λ_{N-1-j}(S)) 0`, the `j`-th largest absolute negative eigenvalue;
 * `sigT j = √(max (λ_{2j}(TᵀT)) 0)`, the singular values of `T` counted once.
 
-Indices out of range read as `0` (`eigAt`), so no hypothesis `2n ≤ N` is needed to
-define them. The Frobenius norms are written through the Gram matrix and checked
+Indices out of range read as `0` (`eigAt`), so the definitions need no hypothesis `2n ≤ N`.
+For `n ≤ N`, missing list entries read as `0`; for `N < n`, the truncated subtraction
+in `lamM` repeats an entry instead. The Frobenius norms are written through the Gram matrix and checked
 against an orthonormal basis.
 -/
 

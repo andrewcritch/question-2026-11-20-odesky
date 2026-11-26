@@ -74,4 +74,41 @@ theorem correlated_gaussian_law (r : ℝ) (hr : |r| < 1) (v₁ v₂ : NNReal)
   have hs2' : ((s : ℂ)) ^ 2 = 1 - (r : ℂ) ^ 2 := by exact_mod_cast hs2
   linear_combination (-(↑(L (1, 0)) + ↑(L (0, 1)) : ℂ) ^ 2 / 2) * hs2'
 
+/-- One entry of the ensemble: for independent standard Gaussians `P, M` and
+`f, g > 0`, the pair `(2√f P, 2√g M)` has the law of two independent centered
+Gaussians with variances `4f` and `4g`. -/
+theorem ensemble_entry_law (f g : ℝ) (hf : 0 < f) (hg : 0 < g) (w₁ w₂ : NNReal)
+    (hw₁ : (w₁ : ℝ) = 4 * f) (hw₂ : (w₂ : ℝ) = 4 * g) :
+    ((gaussianReal 0 1).prod (gaussianReal 0 1)).map
+        (fun p : ℝ × ℝ => (2 * Real.sqrt f * p.1, 2 * Real.sqrt g * p.2)) =
+      (gaussianReal 0 w₁).prod (gaussianReal 0 w₂) := by
+  have h1 : (gaussianReal 0 1).map (fun x : ℝ => 2 * Real.sqrt f * x) = gaussianReal 0 w₁ := by
+    rw [gaussianReal_map_const_mul]
+    congr 1
+    · ring
+    · ext; simp [hw₁, mul_pow, Real.sq_sqrt hf.le]; norm_num
+  have h2 : (gaussianReal 0 1).map (fun x : ℝ => 2 * Real.sqrt g * x) = gaussianReal 0 w₂ := by
+    rw [gaussianReal_map_const_mul]
+    congr 1
+    · ring
+    · ext; simp [hw₂, mul_pow, Real.sq_sqrt hg.le]; norm_num
+  rw [← h1, ← h2, Measure.map_prod_map _ _ (by fun_prop) (by fun_prop)]
+  rfl
+
+/-- The correlated Gaussian model with `|r| < 1` has, entry by entry, the law of the
+ensemble entry `(2√f P, 2√g M)` with `f = (1+r)/2`, `g = (1-r)/2`. -/
+theorem correlated_eq_ensemble_entry (r : ℝ) (hr : |r| < 1) :
+    ((gaussianReal 0 1).prod (gaussianReal 0 1)).map
+        (fun p : ℝ × ℝ => (p.1 + (r * p.1 + Real.sqrt (1 - r ^ 2) * p.2),
+          (r * p.1 + Real.sqrt (1 - r ^ 2) * p.2) - p.1)) =
+      ((gaussianReal 0 1).prod (gaussianReal 0 1)).map
+        (fun p : ℝ × ℝ => (2 * Real.sqrt ((1 + r) / 2) * p.1,
+          2 * Real.sqrt ((1 - r) / 2) * p.2)) := by
+  have hr' := abs_lt.mp hr
+  have hp : (0 : ℝ) ≤ 2 * (1 + r) := by linarith
+  have hm : (0 : ℝ) ≤ 2 * (1 - r) := by linarith
+  rw [correlated_gaussian_law r hr ⟨2 * (1 + r), hp⟩ ⟨2 * (1 - r), hm⟩ rfl rfl,
+    ensemble_entry_law ((1 + r) / 2) ((1 - r) / 2) (by linarith) (by linarith)
+      ⟨2 * (1 + r), hp⟩ ⟨2 * (1 - r), hm⟩ (by simp; ring) (by simp; ring)]
+
 end Odesky

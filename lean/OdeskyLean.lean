@@ -21,3 +21,4 @@ import OdeskyLean.SpecialCases
 import OdeskyLean.Ratio
 import OdeskyLean.Bridge
 import OdeskyLean.Extras
+import OdeskyLean.Scaling

@@ -189,7 +189,7 @@ private lemma ipQK_id (fv gv : Fin n → ℝ) (hf : ∀ i, 0 < fv i) (hg : ∀ i
   split_ifs <;> ring
 
 /-- Exact limit configuration built from an orthonormal family. -/
-private lemma limit_config {N : ℕ} (fv gv : Fin n → ℝ) (hf : ∀ i, 0 < fv i) (hg : ∀ i, 0 < gv i)
+theorem limit_config {N : ℕ} (fv gv : Fin n → ℝ) (hf : ∀ i, 0 < fv i) (hg : ∀ i, 0 < gv i)
     (e : Fin (n + n) → EuclideanSpace ℝ (Fin N)) (he : Orthonormal ℝ e) :
     (∀ i l, ⟪qOf fv gv e i, qOf fv gv e l⟫ = if i = l then fv i + gv i else 0) ∧
     (∀ i l, ⟪kOf fv gv e i, kOf fv gv e l⟫ = if i = l then fv i + gv i else 0) ∧
@@ -198,6 +198,19 @@ private lemma limit_config {N : ℕ} (fv gv : Fin n → ℝ) (hf : ∀ i, 0 < fv
   · rw [inner_qq, gram_orthonormal e he, ipQQ_id fv gv hf hg]
   · rw [inner_kk, gram_orthonormal e he, ipKK_id fv gv hf hg]
   · rw [inner_qk, gram_orthonormal e he, ipQK_id fv gv hf hg]
+
+/-- **Existence of the limit form.** For positive strengths and `2n ≤ N`, there is an
+actual sum of rank-one forms on orthogonal planes with `α = fv`, `β = gv` and `|t_i| < 1`. -/
+theorem exists_limit_form {N : ℕ} (fv gv : Fin n → ℝ) (hf : ∀ i, 0 < fv i) (hg : ∀ i, 0 < gv i)
+    (hN : n + n ≤ N) :
+    ∃ B : OrthoBlocks n N, (∀ i, |B.t i| < 1) ∧ (∀ i, B.α i = fv i) ∧ (∀ i, B.β i = gv i) := by
+  let e : Fin (n + n) → EuclideanSpace ℝ (Fin N) := fun a => EuclideanSpace.single (Fin.castLE hN a) 1
+  have he : Orthonormal ℝ e := by
+    have h := (EuclideanSpace.basisFun (Fin N) ℝ).orthonormal.comp (Fin.castLE hN) (Fin.castLE_injective hN)
+    simpa [e, Function.comp_def] using h
+  obtain ⟨hqq, hkk, hqk⟩ := limit_config fv gv hf hg e he
+  obtain ⟨B, -, hT, hα, hβ⟩ := blocks_of_limit_gram fv gv hf hg _ _ hqq hkk hqk
+  exact ⟨B, hT, hα, hβ⟩
 
 section weylpart
 variable {N : ℕ}
