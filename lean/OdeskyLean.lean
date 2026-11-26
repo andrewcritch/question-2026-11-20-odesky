@@ -12,3 +12,9 @@ import OdeskyLean.GenProfile
 import OdeskyLean.Perturb
 import OdeskyLean.Limit
 import OdeskyLean.TheoremBFull
+import OdeskyLean.TheoremAExtra
+import OdeskyLean.TheoremBExtra
+import OdeskyLean.Identities
+import OdeskyLean.Congruence
+import OdeskyLean.LogDet
+import OdeskyLean.SpecialCases
